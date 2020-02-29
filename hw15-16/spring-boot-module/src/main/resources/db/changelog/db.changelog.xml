@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="1" author="shershnev_s@tut.by">
+        <createTable tableName="Item">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(40)"/>
+            <column name="description" type="varchar(40)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="shershnev_s@tut.by">
+        <createTable tableName="ItemDetails">
+            <column name="item_id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" foreignKeyName="fk_item_details"
+                             referencedTableName="Item" referencedColumnNames="id" deleteCascade="true"/>
+            </column>
+            <column name="price" type="int"/>
+
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="shershnev_s@tut.by">
+        <createTable tableName="Shop">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(40)"/>
+            <column name="location" type="varchar(40)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="shershnev_s@tut.by">
+        <createTable tableName="ItemsInShops">
+            <column name="item_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_items_in_shops" referencedTableName="Item"
+                             referencedColumnNames="id" deleteCascade="true" primaryKey="true"/>
+            </column>
+            <column name="shop_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_shops_contains_items" referencedTableName="Shop"
+                             referencedColumnNames="id" deleteCascade="true" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
